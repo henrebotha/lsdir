@@ -2,6 +2,6 @@
 
 Instructions:
 
-1. `./gradle bootRun`
-2. Navigate to `localhost:8080/listing` (with optional `path` param)
+1. `./gradle bootRun` (add `--debug-jvm` for debugging)
+2. GET `localhost:8080/listing` (with optional `path` param)
 3. Observe JSON result

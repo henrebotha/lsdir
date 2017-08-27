@@ -1,13 +1,49 @@
 package ls;
 
-public class Listing {
-    private final String listing;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
 
-    public Listing(String listing) {
-        this.listing = listing;
+public class Listing {
+    private final String path;
+
+    public Listing(String path) {
+        this.path = path;
     }
 
-    public String getListing() {
-        return listing;
+    public String getPath() {
+        return path;
+    }
+
+    public JsonFile[] getFiles() {
+        return readDirectory(path);
+    }
+
+    private JsonFile[] readDirectory(final String path) {
+        final File folder = new File(path);
+        final File[] files = folder.listFiles();
+
+        JsonFile[] jsonFiles = new JsonFile[files.length];
+
+        for (int i = 0; i < files.length; i++) {
+            final File file = files[i];
+            JsonFile jsonFile = new JsonFile();
+
+            jsonFile.setPath(file.getPath());
+            jsonFile.setSize(file.length());
+
+            try {
+                BasicFileAttributes attributes = Files.readAttributes(Paths.get(path), BasicFileAttributes.class);
+                jsonFile.setCreationTime(attributes.creationTime().toString());
+                jsonFile.setLastAccessTime(attributes.lastAccessTime().toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            jsonFiles[i] = jsonFile;
+        }
+
+        return jsonFiles;
     }
 }
