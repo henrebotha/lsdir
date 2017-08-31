@@ -9,7 +9,7 @@ public class ListingController {
     // private static final String template = "Henlo! %s";
 
     @RequestMapping("/listing")
-    public Listing listing(@RequestParam(value = "path", defaultValue = "/") String path) {
-        return new Listing(path);
+    public Listing listing(@RequestParam(value = "path", defaultValue = "") String path) {
+        return new Listing("/filesystem" + path);
     }
 }
