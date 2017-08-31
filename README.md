@@ -5,7 +5,7 @@ Note: this was written for Docker 1.12. Results may vary for other versions.
 1. `./gradlew build` - compiles the app
 2. `docker build -t lsdir .` - builds the image
 3. `docker run --rm -t -i -p 8080:8080 -v /:/filesystem lsdir` - runs the image & the app
-4. GET `localhost:8080/listing` (with optional `path` query param)
+4. GET `localhost:8080/listing` (with optional query params - see below)
 5. Observe JSON result!
 
 ## URL params
