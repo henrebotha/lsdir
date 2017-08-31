@@ -20,7 +20,8 @@ public class Listing {
     }
 
     public String getPath() {
-        return path;
+        return path.replaceFirst("/filesystem", "")
+                .replaceFirst("^$", "/"); // Edge case - empty string
     }
 
     public JsonFile[] getFiles() {
@@ -56,7 +57,7 @@ public class Listing {
             final File file = filteredPath.toFile();
             JsonFile jsonFile = new JsonFile();
 
-            jsonFile.setPath(file.getPath());
+            jsonFile.setPath(file.getPath().replaceFirst("/filesystem", ""));
             jsonFile.setSize(file.length());
 
             try {
