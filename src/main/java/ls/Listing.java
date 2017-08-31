@@ -36,8 +36,14 @@ public class Listing {
 
             try {
                 BasicFileAttributes attributes = Files.readAttributes(Paths.get(path), BasicFileAttributes.class);
+
                 jsonFile.setCreationTime(attributes.creationTime().toString());
                 jsonFile.setLastAccessTime(attributes.lastAccessTime().toString());
+                jsonFile.setLastModifiedTime(attributes.lastModifiedTime().toString());
+                jsonFile.setRegularFile(attributes.isRegularFile());
+                jsonFile.setDirectory(attributes.isDirectory());
+                jsonFile.setSymbolicLink(attributes.isSymbolicLink());
+                jsonFile.setOther(attributes.isOther());
             } catch (IOException e) {
                 e.printStackTrace();
             }
